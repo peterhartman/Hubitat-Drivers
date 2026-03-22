@@ -303,7 +303,8 @@ void off() {
  */
 void setLevel(BigDecimal level, BigDecimal duration = 0) {
   logDebug("setLevel(${level}, ${duration}) called")
-  parent?.componentSetLevel(device, level as Integer, duration as Integer)
+  Integer durationMs = duration != null ? (duration * 1000) as Integer : null
+  parent?.componentSetLevel(device, level as Integer, durationMs as Integer)
 }
 
 // ╔══════════════════════════════════════════════════════════════╗

@@ -14794,12 +14794,13 @@ void componentSetLevel(def childDevice, Integer level, Integer transitionMs = nu
       // Only include brightness param if level > 0 to avoid issues with bulbs that don't like brightness=0
       Map params = level > 0 ? [turn: 'on', brightness: level.toString()] : [turn: 'off']
  
-      // Gen 1 bulbs support an optional transition param in seconds 
+      // Gen 1 bulbs support an optional transition param in milliseconds 
       if (transitionMs != null) {
-        params.transition = (transitionMs / 1000).intValue().toString()
+        params.transition = transitionMs.intValue().toString()
       }
       String brightnessStr = params.brightness ? "&brightness=${params.brightness}" : ""
-      logDebug("componentSetLevel: Gen 1 light/${lightId}?turn=${params.turn}${brightnessStr}")
+      String transitionStr = transitionMs ? "&transition=${params.transition}" : ""
+      logDebug("componentSetLevel: Gen 1 light/${lightId}?turn=${params.turn}${brightnessStr}${transitionStr}")
       sendGen1Get(ipAddress, "light/${lightId}", params)
       return
     }
