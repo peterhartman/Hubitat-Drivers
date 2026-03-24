@@ -58,7 +58,7 @@
 // App version — single source of truth. The CI pipeline automatically syncs this value
 // into the definition() block's version field on release. Do NOT manually edit the
 // version in definition() — it will be overwritten on the next release.
-@Field static final String APP_VERSION = "1.0.45"
+@Field static final String APP_VERSION = "1.0.46"
 
 // GitHub repository and branch used for fetching resources (scripts, component definitions, auto-updates).
 @Field static final String GITHUB_REPO = 'peterhartman/Hubitat-Drivers'
@@ -14799,7 +14799,7 @@ void componentSetLevel(def childDevice, Integer level, Integer transitionMs = nu
       // Only send transition when turning on
       if (transitionMs != null && level > 0) {
         // Max transition is 5000ms (5s); cap it to avoid errors
-        params.transition = min(transitionMs.intValue(), 5000).toString()
+        params.transition = Integer.min(transitionMs.intValue(), 5000).toString()
       }
       String brightnessStr = params.brightness ? "&brightness=${params.brightness}" : ""
       String transitionStr = params.transition ? "&transition=${params.transition}" : ""
